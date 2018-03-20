@@ -36,6 +36,19 @@ object DemoSpark {
     val lineLength = ipText.map(line => (line, "--> Char length :"+line.length()))
     lineLength.foreach(println)
     
+     //Flat Map test
+    val lineitem = ipText.flatMap(line => line.split(" "))
+    lineitem.foreach(println)
+    
+     //Filter test - incomplete
+    println("AMMA :  even numbers")
+    val lineItemEven = lineitem.flatMap( eachItem => {
+                    eachItem.filter(value => (value.toInt)%2 == 0)
+      
+                }
+        )
+    lineItemEven.foreach(println)
+    
   }
 
 }
