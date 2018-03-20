@@ -8,6 +8,8 @@ object WordCount {
       
       println("Om Hari Sri Ganapathaye Namaha \nAvighnamasthu Sri Guruve Namaha")
       
+      println("OM AMMA")
+      
      val sparkConf = new SparkConf().setAppName("My AMMA Spark").setMaster("local[1]").set("spark.executor.memory","1g");
      
      val sparkContext = new SparkContext(sparkConf)
