@@ -49,6 +49,48 @@ object DemoSpark {
         )
     lineItemEven.foreach(println)
     
+    //Map Partition
+    val lineitem1 = ipText.mapPartitions{
+      (iterator) => {
+                         //  println("Called in Partition -> " + index)
+                         // In a normal user case, we will do the
+                         // the initialization(ex : initializing database)
+                         // before iterating through each element
+                         val myList = iterator.toList
+                         myList.map(x => x + " -> " + "AMMA").iterator
+                       }
+    }
+    lineitem1.foreach(println)
+
+        //Map Partition
+    val lineitem2 = ipText.mapPartitionsWithIndex{
+      (index,iterator) => {
+                         println("Called in Partition -> " + index)
+                         // In a normal user case, we will do the
+                         // the initialization(ex : initializing database)
+                         // before iterating through each element
+                         val myList = iterator.toList
+                         myList.map(x => x + " -> " + "AMMA" + index).iterator
+                       }
+    }
+    lineitem2.foreach(println)
+    
+    //union rdd test
+    println("Union Test")
+    val rddUnion = words.union(lineitem)
+    rddUnion.foreach(println)
+    
+     //intersection rdd test
+    println("intersection Test")
+    val rddIntersection = words.intersection(lineitem)
+    rddIntersection.foreach(println)
+
+    //distinct rdd test
+    println("distinct Test")
+    val rdd2 = sparkContext.parallelize(Seq((1,"jan",2016),(3,"nov",2014),(16,"feb",2014),(3,"nov",2014)))
+    val result1 = rdd2.distinct()
+    println(result1.collect().mkString(", "))
+    
   }
 
 }
