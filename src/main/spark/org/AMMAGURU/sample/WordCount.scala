@@ -10,11 +10,11 @@ object WordCount {
       
       println("OM AMMA")
       
-     val sparkConf = new SparkConf().setAppName("My AMMA Spark").setMaster("local[1]").set("spark.executor.memory","1g");
+     val sparkConf = new SparkConf().setAppName("My AMMA Spark")//.setMaster("local[1]").set("spark.executor.memory","1g");
      
      val sparkContext = new SparkContext(sparkConf)
       
-      val ipText = sparkContext.textFile("/home/imcelibate/AMMA/tech/BIGData/SparkJars/sample_data/SparkWordCount.txt")
+      val ipText = sparkContext.textFile("/home/imcelibate/AMMA/tech/BIGData/SparkJars/sample_data/SparkWordCount.txt",0)
       
       val words = ipText.flatMap(line => (line.split(" ")))
       
@@ -22,5 +22,9 @@ object WordCount {
       
       // Save the word count back out to a text file, causing evaluation.
       counts.saveAsTextFile("/home/imcelibate/AMMA/tech/BIGData/SparkJars/op")
+      
+      sparkContext.stop()
+      
+      
     }
 }
